@@ -1,7 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
--- Convert binary to gray code
 entity bin_to_gray is
 	generic (
 		input_width: 	positive := 16

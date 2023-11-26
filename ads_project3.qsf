@@ -51,3 +51,6 @@ set_global_assignment -name VHDL_FILE control_generic_pkg.vhd -library work
 set_global_assignment -name VHDL_FILE ads_project3.vhd
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE bin_to_gray.vhd
+set_global_assignment -name VHDL_FILE gray_to_bin.vhd
+set_global_assignment -name SDC_FILE check_timing.sdc

@@ -1,10 +1,10 @@
 library ieee;
-use ieee_std_logic_1164.all;
+use ieee.std_logic_1164.all;
 
 -- Convert gray code to binary
 entity gray_to_bin is
 	generic (
-		input_width: 	positive := 16
+		input_width: 	positive := 4
 	);
 	port (
 		gray_in: 		in std_logic_vector(input_width-1 downto 0);

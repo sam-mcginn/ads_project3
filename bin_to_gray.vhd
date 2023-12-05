@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 -- Convert binary to gray code
 entity bin_to_gray is
 	generic (
-		input_width: 	positive := 16
+		input_width: 	positive := 4
 	);
 	port (
 		bin_in:			in std_logic_vector(input_width-1 downto 0);
@@ -12,7 +12,7 @@ entity bin_to_gray is
 	);
 end entity bin_to_gray;
 
-architecture rt1 of bin_to_gray si
+architecture rt1 of bin_to_gray is
 	signal shifted: std_logic_vector(bin_in'range);
 begin
 	shifted(input_width-2 downto 0) <= bin_in(input_width-1 downto 1);

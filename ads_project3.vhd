@@ -1,16 +1,33 @@
 --- top level entity
 library ieee;
 use ieee.std_logic_1164.all;
-use iee.numeric_std.all
+use ieee.numeric_std.all;
 
 library work;
-use control_generic_pkg.all;
+use work.control_generic_pkg.all;
 
 entity ads_project3 is
+	generic (
+		address_width: 	natural := 8
+	);
+	port (
+		base_clock:			in std_logic;
+		reset: 				in std_logic
+	);
 end entity ads_project3;
 
 architecture top_level of ads_project3 is
+	signal placeholder: std_logic := '0';		-- placeholder to get project to synthesize
 begin
+	delete_this: process(reset) is
+	begin
+		if reset='1' then
+			placeholder <= '1';
+		else
+			placeholder <= '0';
+		end if;
+	end process delete_this;
+	
 -- COMPONENTS:
 -- ADC (producer domain)
 

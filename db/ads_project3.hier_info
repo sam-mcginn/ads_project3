@@ -1,0 +1,5 @@
+|ads_project3
+base_clock => ~NO_FANOUT~
+reset => ~NO_FANOUT~
+
+

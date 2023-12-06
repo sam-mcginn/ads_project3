@@ -21,9 +21,6 @@ package control_generic_pkg is
 	type lamp_configuration is (common_anode, common_cathode);
 	constant default_lamp_config : lamp_configuration := common_anode;
 
-	-- Hex digit stored as a natural number (range: 0-15)
-	subtype hex_digit is natural range seven_segment_table'range; 
-
 	-- Constant seven-segment configurations for all 0's or all 1's for each segment
 	constant zero: seven_segment_config := (a=>'0', b=>'0', c=>'0', d=>'0', e=>'0', f=>'0', g=>'0');
 	constant one: seven_segment_config := (a=>'1', b=>'1', c=>'1', d=>'1', e=>'1', f=>'1', g=>'1');
@@ -78,6 +75,9 @@ package control_generic_pkg is
 		 -- Hexadecimal digit F
 		 (a => '1', b => '0', c => '0', d => '0', e => '1', f => '1', g => '1')
 	);
+	
+	-- Hex digit stored as a natural number (range: 0-15)
+	subtype hex_digit is natural range seven_segment_table'range; 
 
 	-- Invert all segments in a configuration
 	function "not" (

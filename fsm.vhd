@@ -24,7 +24,7 @@ entity fsm is
 		tail_ptr_out:		out std_logic_vector(address_width-1 downto 0);
 		
 		-- BOTH:
-		reset: 				in std_logic
+		reset: 				in std_logic		-- assuming active low for now
 		
 	);
 end entity fsm;
@@ -40,14 +40,20 @@ architecture fsm_arch of fsm is
 	signal prod_state, prod_next_state: 	producer_state_type := idle;
 	signal con_state, con_next_state: 		consumer_state_type := idle;
 	
-	signal full_flag: std_logic := '0';
-	signal new_data_flag: std_logic := '0';
+	signal full_flag: std_logic;
+	signal new_data_flag: std_logic;
+	
 	
 begin
+	-- Flag conditions:
+	full_flag <= '1' when (curr_head = max_address) else '0';
+	-- FIX:
+	new_data_flag <= '1' when (curr_tail < curr_head) else '0';
+
 	-- PRODUCER domain:
 	-- Set next state based on current state, tail value, adc_done and sys. reset
-	-- FIX - add reset?
-	prod_transition_function: process(prod_state,  curr_tail, adc_done) is
+	-- FIX - reset? (add to processes ?)
+	prod_transition_function: process(prod_state, full_flag, adc_done) is
 	begin
 		case prod_state is
 			when idle =>				prod_next_state <= full_wait;
@@ -69,10 +75,63 @@ begin
 		end case;
 	end process prod_transition_function;
 	
+	-- Update head pointer before store
+	increment_head: process(adc_clk) is
+	begin
+		if rising_edge(adc_clk) then
+			if reset = '0' then
+				curr_head <= 0;
+			elsif (prod_next_state = store_val) and (full_flag = '0') then
+				curr_head <= curr_head + 1;
+			end if;
+		end if;
+		head_ptr_out <= std_logic_vector(to_unsigned(curr_head, address_width));
+	end process increment_head;
+	
+	-- Start ADC conversion
+	start_conversion: process(adc_clk) is
+	begin
+		if rising_edge(adc_clk) then
+			if reset = '0' then
+				adc_start <= '0';
+			elsif prod_state = start_conv then
+				adc_start <= '1';
+			else 	-- FIX - when to go back to '0' ?
+				adc_start <= '0';
+			end if;
+		end if;
+	end process start_conversion;
+	
+	-- Store value when ADC conversion is done
+	store_value: process(adc_clk) is
+	begin
+		if rising_edge(adc_clk) then
+			if reset='0' then
+				write_en <= '0';
+			elsif prod_state = store_val then
+				write_en <= '1';
+			else
+				write_en <= '0';
+			end if;
+		end if;
+	end process store_value;
+	
+	-- Update current state
+	save_p_state: process(adc_clk) is
+	begin
+		if rising_edge(adc_clk) then
+			if reset = '0' then
+				prod_state <= idle;
+			else
+				prod_state <= prod_next_state;
+			end if;
+		end if;
+	end process save_p_state;
+	
 	
 	-- CONSUMER domain:
 	-- Set next state based on current state
-	con_transition_function: process(consumer_clk, reset) is
+	con_transition_function: process(con_state, new_data_flag) is
 	begin
 		case con_state is
 			when idle =>				con_next_state <= wait_new;
@@ -85,5 +144,67 @@ begin
 			when update_tail =>		con_next_state <= wait_new;
 		end case;
 	end process con_transition_function;
+	
+	-- Update tail pointer
+	increment_tail: process(consumer_clk) is
+	begin
+		if rising_edge(consumer_clk) then
+			if reset = '0' then
+				curr_tail <= 0;
+			-- double check this ?
+			elsif con_state = update_tail and (curr_tail < max_address) then
+				curr_tail <= curr_tail + 1;
+			end if;
+		end if;
+		tail_ptr_out <= std_logic_vector(to_unsigned(curr_tail, address_width));
+	end process increment_tail;
+	
+	
+	-- Update current state
+	save_c_state: process(consumer_clk) is
+	begin
+		if rising_edge(consumer_clk) then
+			if reset = '0' then
+				con_state <= idle;
+			else
+				con_state <= con_next_state;
+			end if;
+		end if;
+	end process save_c_state;
 
 end architecture fsm_arch;
+
+
+architecture oisc of fsm is
+	type ucode_line is record
+		rst: std_logic;
+		mem_full: boolean;
+		new_data: boolean;
+		w_en: std_logic;
+		start_conv: std_logic;
+		conv_done: std_logic;
+	end record;
+	
+	type ucode_instruct_type is array(natural range<>) of ucode_line;
+	-- FIX - w_en, conv_done ??
+	constant ucode_instructs: ucode_instruct_type := (
+		-- both idle
+		(rst => '0', mem_full => false, new_data => false, w_en => '0', start_conv => '0', conv_done => '0')
+		-- prod: wait for space, con: update tail
+		(rst => '1', mem_full => true, new_data => true, w_en => '0', start_conv => '0', conv_done => '0')
+		-- prod: start_conv, con: update tail
+		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
+		-- prod: start_conv, con: wait
+		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
+		-- prod: wait for adc, con: update tail
+		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
+		-- prod: wait for adc, con: wait
+		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
+		-- prod: store, con: update tail
+		(rst => '1', mem_full => false, new_data => true, w_en => '1', start_conv => '0', conv_done => '1')
+		-- prod: store, con: wait
+		(rst => '1', mem_full => false, new_data => false, w_en => '1', start_conv => '0', conv_done => '1')
+	);
+	
+begin
+end architecture oisc;

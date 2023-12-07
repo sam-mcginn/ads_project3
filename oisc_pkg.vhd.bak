@@ -1,0 +1,16 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+package oisc_pkg is
+	 type uinstruct is record
+		ctrl1: std_logic;
+		ctrl2: std_logic;
+		ctrl3: std_logic;s
+		flag1: std_logic;
+		flag2: std_logic;
+	end record uninstruct;
+	
+	type ucode_rom_type is array (natural range <>) of uinstruct;
+
+end package oisc_pkg;

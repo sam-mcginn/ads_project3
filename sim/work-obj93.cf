@@ -1,0 +1,12 @@
+v 4
+file . "tb_producer.vhd" "f135c172c2186c8fa081fb06a9d5186b9de59a97" "20231206210956.525":
+  entity tb_producer at 1( 0) + 0 on 58;
+  architecture test of tb_producer at 12( 161) + 0 on 59;
+file . "tb_consumer.vhd" "7a01b96dc39ae7b8fa3a4403984b60d0f9be519d" "20231206210956.356":
+  entity tb_consumer at 1( 0) + 0 on 56;
+  architecture test of tb_consumer at 12( 161) + 0 on 57;
+file . "../oisc_pkg.vhd" "028c8ff0ba561c928f79bac816a4200abd2d304f" "20231206210956.254":
+  package oisc_pkg at 1( 0) + 0 on 53;
+file . "../oisc.vhd" "d7af70beb976bb67809de5cc2182261c3f0e0846" "20231206210956.298":
+  entity oisc at 1( 0) + 0 on 54;
+  architecture fsm of oisc at 25( 402) + 0 on 55;

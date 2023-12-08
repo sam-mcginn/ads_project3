@@ -51,4 +51,17 @@ package project4_pkg is
 	end component true_dual_port_ram_dual_clock;
 
 
+	-- ADC Module
+	component max10_adc is
+		port (
+			pll_clk:		in	std_logic;								-- pll_clk:	clock input (10 MHz)
+			chsel:		in	natural range 0 to 2**5 - 1;		-- chsel:	channel select
+			soc:			in	std_logic;								-- soc:		start of conversion
+			tsen:			in	std_logic;								-- Mode, 0=normal, 1=temp-sensing
+			dout:			out natural range 0 to 2**12 - 1;	-- dout:	data output
+			eoc:			out std_logic;								-- eoc: end of conversion
+			clk_dft:		out std_logic								-- clk_dft: clock output from clock divider
+		);
+	end component max10_adc;
+
 end package project4_pkg;

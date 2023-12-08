@@ -10,8 +10,8 @@ use work.project4_pkg.all;
 
 entity ads_project3 is
 	generic (
-		address_width: 	natural := 8
-		data_width:			natural := 8
+		address_width: 	natural := 8		-- FIX: VALUE ?
+		data_width:			natural := 8		-- FIX: VALUE ?
 	);
 	port (
 		base_clock:			in std_logic;
@@ -20,27 +20,59 @@ entity ads_project3 is
 end entity ads_project3;
 
 architecture top_level of ads_project3 is
-	signal prod_clock: std_logic;
+	-- ADC SIGNALS
+	signal adc_clock_in: std_logic := '0';		-- PLL clock input (10MHz) FIX: DRIVE FROM PLL
+	signal prod_clock: std_logic;					-- Output clock from ADC -> drive rest of producer side
+	signal adc_ch_sel: natural;					-- ADC channel select	(5 bit value)
+	signal adc_mode: std_logic;					-- ADC mode (temp sense)
+	signal adc_data: natural range 0 to 2**12 - 1 	-- ADC conversion output (12 bit value)
+	signal adc_soc: std_logic;						-- ADC start conversion control
+	signal adc_eoc: std_logic;						-- ADC end of conversion indicator
+	
+	-- BUFFER/FSM SIGNALS
+	type pointer is natural range 0 to 2**(addr_width)-1;		-- FIX: DOUBLE CHECK?
+	signal head_ptr: pointer := 0;									-- FIX: ADD FUNCTION TO INCREMENT HEAD/TAIL
+	signal tail_ptr: pointer := 0;
+	signal head_ptr_gray: pointer;		-- pointer from sync to consumer FSM
+	signal tail_ptr_gray: pointer;		-- pointer from sync to producer FSM
+	
+	
+	-- FIX: CONVERT ADC DATA OUT (NATURAL) --> BUFFER DATA IN (STD_LOGIC_VECTOR)
+	
 begin
-		
-	-- COMPONENTS:
 	-- Buffer RAM; side A = producer/head side, B = consumer/tail side
 	buffer_ram: true_dual_port_ram_dual_clock
 		generic map (
-			DATA_WIDTH => data_width,	-- how many bits you need for each address 
+			DATA_WIDTH => 12		-- how many bits you need for each address 
 			ADDR_WIDTH => addr_width 	-- how many widths you need for addresses, if head goes from 0 to 15 then you have a 4 bit address
 		)
 		port map (
-			clk_a	=>		,
-			clk_b	=> base_clock,
-			addr_a	: in natural range 0 to 2**ADDR_WIDTH - 1, --head pointer
-			addr_b	: in natural range 0 to 2**ADDR_WIDTH - 1, -- tail pointer 
+			clk_a		=>	prod_clock,
+			clk_b		=> base_clock,
+			addr_a 	=> head_ptr, --head pointer
+			addr_b 	=> tail_ptr, -- tail pointer 
 			data_a	: in std_logic_vector((DATA_WIDTH-1) downto 0),
-			data_b	: in std_logic_vector((DATA_WIDTH-1) downto 0),
+			data_b	=> open,
 			we_a		: in std_logic := '1',
-			we_b		: in std_logic := '1',
+			we_b		=> open,
 			q_a		: out std_logic_vector((DATA_WIDTH -1) downto 0),
-			q_b		: out std_logic_vector((DATA_WIDTH -1) downto 0)
+			q_b		=> open
+		);
+		
+	-- PRODUCER SIDE:
+	-- ADC
+	adc_clock_in <= not adc_clock_in after -- FIX - DRIVE FROM PLL (10MHZ)
+	adc_ch_sel => 1;				-- FIX - ????
+	adc_mode => '1';
+	adc_driver: max10_adc
+		port (
+			pll_clk 		<= adc_clock_in,				-- clock input (10 MHz)
+			chsel 		<= adc_ch_sel,					-- channel select (5 bit num.)
+			soc			<= adc_soc,						-- start of conversion
+			tsen 			<= adc_mode,					-- Mode, 0=normal, 1=temp-sensing
+			dout:			<= adc_data,					-- dout:	data output
+			eoc 			<= adc_eoc,						-- end of conversion
+			clk_dft 		<= prod_clock					-- clk_dft: clock output from clock divider
 		);
 
 	-- Producer side FSM
@@ -68,7 +100,6 @@ begin
 			bin_in:			in std_logic_vector(input_width-1 downto 0),
 			gray_out:		out std_logic_vector(input_width-1 downto 0)
 		);
-
 
 	-- Gray code to binary converter (consumer domain)
 	producer_g2b: gray_to_bin

@@ -65,3 +65,4 @@ set_global_assignment -name VHDL_FILE buffer_ram.vhd
 set_global_assignment -name VHDL_FILE fsm.vhd
 set_global_assignment -name VHDL_FILE oisc.vhd
 set_global_assignment -name VHDL_FILE oisc_pkg.vhd -library work
+set_global_assignment -name VHDL_FILE project4_pkg.vhd -library work

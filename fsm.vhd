@@ -175,75 +175,75 @@ begin
 end architecture fsm_arch;
 
 
-architecture oisc of fsm is
-	type ucode_line is record
-		rst: std_logic;
-		mem_full: boolean;
-		new_data: boolean;
-		w_en: std_logic;
-		start_conv: std_logic;
-		conv_done: std_logic;
-	end record;
-	
-	type ucode_instruct_type is array(natural range<>) of ucode_line;
-	-- FIX - w_en, conv_done ??
-	constant ucode_instructs: ucode_instruct_type := (
-		-- both idle
-		(rst => '0', mem_full => false, new_data => false, w_en => '0', start_conv => '0', conv_done => '0')
-		-- prod: wait for space, con: update tail
-		(rst => '1', mem_full => true, new_data => true, w_en => '0', start_conv => '0', conv_done => '0')
-		-- prod: start_conv, con: update tail
-		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
-		-- prod: start_conv, con: wait
-		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
-		-- prod: wait for adc, con: update tail
-		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
-		-- prod: wait for adc, con: wait
-		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
-		-- prod: store, con: update tail
-		(rst => '1', mem_full => false, new_data => true, w_en => '1', start_conv => '0', conv_done => '1')
-		-- prod: store, con: wait
-		(rst => '1', mem_full => false, new_data => false, w_en => '1', start_conv => '0', conv_done => '1')
-	);
-	
-	constant max_address: natural := 2**address_width - 1;
-	signal curr_head, curr_tail: natural range 0 to max_address := 0;
-	signal curr_ucode: natural range ucode_instructs'range := 0;
-begin
-
-	ucode_sequencer: process(adc_clk, consumer_clk) is
-	begin
-		if rising_edge(consumer_clk) and rising_edge(adc_clk) then
-			-- Check to update both producer and consumer
-			if reset = '0' then
-				curr_ucode <= 0;
-			else
-				case curr_ucode is
-					-- Both idle -> both waits
-					when 0 => 					curr_ucode <= 1
-					-- Wait full, update tail -> wait full or start, wait
-					when 1 =>
-					-- Start, update -> wait adc, wait
-					when 2 =>
-					-- Start, wait -> wait adc, wait or update
-					when 3 =>
-					-- Wait adc, update -> wait or store, wait
-					when 4 =>
-					-- Wait adc, wait -> wait or store, wait or update
-					when 5 =>
-					-- store, update -> wait full, wait
-					when 6 =>
-					-- store, wait -> wait full, wait or update
-					when 7 =>
-		elsif rising_edge(consumer_clk) then
-			-- Only update consumer
-			if reset = '0' then
-					curr_ucode <= 0;
-		elsif rising_edge(adc_clk) then
-			-- Only update producer
-			if reset = '0' then
-					curr_ucode <= 0;
-		end if;
-	end process ucode_sequencer;
-
-end architecture oisc;
+--architecture oisc of fsm is
+--	type ucode_line is record
+--		rst: std_logic;
+--		mem_full: boolean;
+--		new_data: boolean;
+--		w_en: std_logic;
+--		start_conv: std_logic;
+--		conv_done: std_logic;
+--	end record;
+--	
+--	type ucode_instruct_type is array(natural range<>) of ucode_line;
+--	-- FIX - w_en, conv_done ??
+--	constant ucode_instructs: ucode_instruct_type := (
+--		-- both idle
+--		(rst => '0', mem_full => false, new_data => false, w_en => '0', start_conv => '0', conv_done => '0')
+--		-- prod: wait for space, con: update tail
+--		(rst => '1', mem_full => true, new_data => true, w_en => '0', start_conv => '0', conv_done => '0')
+--		-- prod: start_conv, con: update tail
+--		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
+--		-- prod: start_conv, con: wait
+--		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
+--		-- prod: wait for adc, con: update tail
+--		(rst => '1', mem_full => false, new_data => true, w_en => '0', start_conv => '1', conv_done => '0')
+--		-- prod: wait for adc, con: wait
+--		(rst => '1', mem_full => false, new_data => false, w_en => '0', start_conv => '1', conv_done => '0')
+--		-- prod: store, con: update tail
+--		(rst => '1', mem_full => false, new_data => true, w_en => '1', start_conv => '0', conv_done => '1')
+--		-- prod: store, con: wait
+--		(rst => '1', mem_full => false, new_data => false, w_en => '1', start_conv => '0', conv_done => '1')
+--	);
+--	
+--	constant max_address: natural := 2**address_width - 1;
+--	signal curr_head, curr_tail: natural range 0 to max_address := 0;
+--	signal curr_ucode: natural range ucode_instructs'range := 0;
+--begin
+--
+--	ucode_sequencer: process(adc_clk, consumer_clk) is
+--	begin
+--		if rising_edge(consumer_clk) and rising_edge(adc_clk) then
+--			-- Check to update both producer and consumer
+--			if reset = '0' then
+--				curr_ucode <= 0;
+--			else
+--				case curr_ucode is
+--					-- Both idle -> both waits
+--					when 0 => 					curr_ucode <= 1
+--					-- Wait full, update tail -> wait full or start, wait
+--					when 1 =>
+--					-- Start, update -> wait adc, wait
+--					when 2 =>
+--					-- Start, wait -> wait adc, wait or update
+--					when 3 =>
+--					-- Wait adc, update -> wait or store, wait
+--					when 4 =>
+--					-- Wait adc, wait -> wait or store, wait or update
+--					when 5 =>
+--					-- store, update -> wait full, wait
+--					when 6 =>
+--					-- store, wait -> wait full, wait or update
+--					when 7 =>
+--		elsif rising_edge(consumer_clk) then
+--			-- Only update consumer
+--			if reset = '0' then
+--					curr_ucode <= 0;
+--		elsif rising_edge(adc_clk) then
+--			-- Only update producer
+--			if reset = '0' then
+--					curr_ucode <= 0;
+--		end if;
+--	end process ucode_sequencer;
+--
+--end architecture oisc;

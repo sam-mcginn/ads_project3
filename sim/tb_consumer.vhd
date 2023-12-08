@@ -22,7 +22,7 @@ architecture test of tb_consumer is
 	signal test_done: boolean := false;
 
 	signal can_advance: std_logic := '0';
-	signal advance_tail: std_Logic;
+	signal advance_tail: std_logic;
 begin
 	clock <= not clock after 2 ps when not test_done else '0';
 

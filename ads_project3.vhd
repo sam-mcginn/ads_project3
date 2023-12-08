@@ -11,7 +11,7 @@ use work.project4_pkg.all;
 entity ads_project3 is
 	generic (
 		address_width: 	natural := 8		-- FIX: VALUE ?
-		data_width:			natural := 8		-- FIX: VALUE ?
+		data_width:			natural := 12		-- FIX: VALUE ?
 	);
 	port (
 		base_clock:			in std_logic;
@@ -33,9 +33,11 @@ architecture top_level of ads_project3 is
 	type pointer is natural range 0 to 2**(addr_width)-1;		-- FIX: DOUBLE CHECK?
 	signal head_ptr: pointer := 0;									-- FIX: ADD FUNCTION TO INCREMENT HEAD/TAIL
 	signal tail_ptr: pointer := 0;
-	signal head_ptr_gray: pointer;		-- pointer from sync to consumer FSM
-	signal tail_ptr_gray: pointer;		-- pointer from sync to producer FSM
+	signal head_ptr_con: pointer;					-- pointer from sync to consumer FSM
+	signal tail_ptr_prod: pointer;				-- pointer from sync to producer FSM
 	
+	signal increment_head: std_logic;			-- indicates when head ptr. should be advanced
+	signal increment_tail: std_logic;			-- indicates when tail ptr. should be advanced
 	signal write_enable: std_logic_vector;
 	
 	-- FIX: CONVERT ADC DATA OUT (NATURAL) --> BUFFER DATA IN (STD_LOGIC_VECTOR)
@@ -46,7 +48,7 @@ begin
 	-- Buffer RAM; side A = producer/head side, B = consumer/tail side
 	buffer_ram: true_dual_port_ram_dual_clock
 		generic map (
-			DATA_WIDTH => 12		-- how many bits you need for each address 
+			DATA_WIDTH => data_width		-- how many bits you need for each address 
 			ADDR_WIDTH => addr_width 	-- how many widths you need for addresses, if head goes from 0 to 15 then you have a 4 bit address
 		)
 		port map (
@@ -64,7 +66,7 @@ begin
 		
 	-- PRODUCER SIDE:
 	-- ADC
-	adc_clock_in <= not adc_clock_in after -- FIX - DRIVE FROM PLL (10MHZ)
+	adc_clock_in <= not adc_clock_in after 100ns-- FIX - DRIVE FROM PLL (10MHZ)
 	adc_ch_sel <= 1;				-- FIX - ????
 	adc_mode <= '1';
 	adc_driver: max10_adc
@@ -73,94 +75,56 @@ begin
 			chsel 		=> adc_ch_sel,					-- channel select (5 bit num.)
 			soc			=> adc_soc,						-- start of conversion
 			tsen 			=> adc_mode,					-- Mode, 0=normal, 1=temp-sensing
-			dout:			=> adc_data,					-- dout:	data output
+			dout			=> adc_data,					-- dout:	data output
 			eoc 			=> adc_eoc,						-- end of conversion
 			clk_dft 		=> prod_clock					-- clk_dft: clock output from clock divider
 		);
 
 	-- Producer side FSM
 	producer_fsm: oisc
-		generic (
+		generic map (
 			ucode_rom => producer_ucode
 		)
-		port (
+		port map (
 			clock					=> prod_clock,
 			reset 				=> reset,
-			external_ctl_1 	=> adc_eoc,	-- end of conversion indicator
+			external_ctl_1 	=> adc_eoc,			-- end of conversion indicator
 			external_ctl_2:	in	std_logic;		-- can advance indicator
 
-			driver_1				=> adc_soc,		-- drives start conversion signal
+			driver_1				=> adc_soc,			-- drives start conversion signal
 			driver_2:			out std_logic;		-- drives advance head/tail signal
-			driver_3				=> write_enable		-- drives write enable
+			driver_3				=> write_enable	-- drives write enable
 		);
 		
-	-- Binary to gray code converter (consumer domain)
-	producer_b2g: bin_to_gray
-		generic (
-			input_width: 	positive := 4
-		)
-		port (
-			bin_in:			in std_logic_vector(input_width-1 downto 0),
-			gray_out:		out std_logic_vector(input_width-1 downto 0)
-		);
 
-	-- Gray code to binary converter (consumer domain)
-	producer_g2b: gray_to_bin
-		generic (
-			input_width: 	positive := 4
-		)
-		port (
-			gray_in: 		in std_logic_vector(input_width-1 downto 0),
-			bin_out: 		out std_logic_vector(input_width-1 downto 0)
-		);
-	
-
+		
 	-- CONSUMER SIDE:
 	-- Consumer FSM
 	consumer_fsm: oisc
-		generic (
+		generic map (
 			ucode_rom:	ucode_rom_type
-		);
-		port (
-			clock:				in std_logic;
-			reset:				in std_logic;
-			external_ctl_1:	in	std_logic;		-- end of conversion indicator
-			external_ctl_2:	in	std_logic;		-- can advance indicator
-
-			driver_1:			out std_logic;		-- drives start conversion signal
-			driver_2:			out std_logic;		-- drives advance head/tail signal
-			driver_3:			out std_logic		-- drives write enable
-		);
-
-	-- Binary to gray code converter (consumer domain)
-	consumer_b2g: bin_to_gray
-		generic (
-			input_width: 	positive := 4
 		)
-		port (
-			bin_in:			in std_logic_vector(input_width-1 downto 0),
-			gray_out:		out std_logic_vector(input_width-1 downto 0)
-		);
+		port map (
+			clock					<= base_clock, 
+			reset					<= rest,
+			external_ctl_1		<= open,				-- end of conversion indicator
+			external_ctl_2		<= head_ptr_out,	-- can advance indicator
 
-
-	-- Gray code to binary converter (consumer domain)
-	consumer_g2b: gray_to_bin
-		generic (
-			input_width: 	positive := 4
-		)
-		port (
-			gray_in: 		in std_logic_vector(input_width-1 downto 0),
-			bin_out: 		out std_logic_vector(input_width-1 downto 0)
+			driver_1				<= open,				-- drives start conversion signal
+			driver_2				out std_logic,		-- drives advance head/tail signal
+			driver_3				<= open				-- drives write enable
 		);
+		
+	-- Two-stage FIFO synchronizer (between domains), need:
+	-- PRODUCER: head_ptr --> head_ptr_out (CONSUMER)
+	-- CONSUMER: tail_ptr --> tail_ptr_out (PRODUCER)
 	
-
-	-- Two-stage FIFO synchronizer (between domains)
-
+	
 
 	-- PROCESSES, etc.:
-	-- Convert ADC data out (natural) --> buffer data in (std_logic_vector
+	-- Convert ADC data out (natural) --> buffer data in (std_logic_vector)
 	
-	-- Get next pointer:
+	-- Get next pointer(s):
 	
 	-- Convert index pointer of clock domain into gray code before transmitting it (?)
 	

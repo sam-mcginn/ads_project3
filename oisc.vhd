@@ -12,12 +12,12 @@ entity oisc is
 	port (
 		clock:				in std_logic;
 		reset:				in std_logic;
-		external_ctl_1:	in	std_logic;
-		external_ctl_2:	in	std_logic;
+		external_ctl_1:	in	std_logic;		--flag1
+		external_ctl_2:	in	std_logic;		--flag2
 
-		driver_1:			out std_logic;
-		driver_2:			out std_logic;
-		driver_3:			out std_logic
+		driver_1:			out std_logic;		--ctrl1
+		driver_2:			out std_logic;		--ctrl2
+		driver_3:			out std_logic		--ctrl3
 		
 	);
 end entity oisc;

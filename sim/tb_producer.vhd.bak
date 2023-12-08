@@ -33,11 +33,11 @@ begin
 		port map (
 			clock =>	clock,
 			reset =>	reset,
-			external_ctl_1 => eoc,				-- flag1
-			external_ctl_2 => can_advance,	-- flag2
-			driver_1 =>	start_conversion,		-- ctrl1
-			driver_2 =>	advance_head,			-- ctrl2
-			driver_3 =>	write_enable			-- ctrl3
+			external_ctl_1 => eoc,			-- flag1
+			external_ctl_2 => can_advance,		-- flag2
+			driver_1 =>	start_conversion,	-- ctrl1
+			driver_2 =>	advance_head,		-- ctrl2
+			driver_3 =>	write_enable		-- ctrl3
 		);
 	
 	-- simulate ADC behavior

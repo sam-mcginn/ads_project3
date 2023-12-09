@@ -63,6 +63,13 @@ architecture top_level of ads_project3 is
 	
 	
 begin
+	-- FIX: Two-stage FIFO synchronizer (between domains), need:
+	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
+	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)
+	-- Producer clock: adc_clock (output clock from ADC)
+	-- Consumer clock: base_clock (50MHz from board)
+
+
 	-- Buffer RAM; side A = producer/head side, B = consumer/tail side
 	buffer_data_in <= std_logic_vector(to_unsigned(adc_data, buffer_data_in'length));
 	
@@ -134,12 +141,6 @@ begin
 			driver_2				=> do_adv_tail,	-- drives advance head/tail signal - FIX - JUST TO COMPILE
 			driver_3				=> open				-- drives write enable
 		);
-		
-	-- Two-stage FIFO synchronizer (between domains), need:
-	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
-	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)
-	
-	
 
 	-- PROCESSES, etc.:
 	-- Update pointer(s):

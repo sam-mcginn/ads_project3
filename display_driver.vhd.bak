@@ -1,0 +1,21 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+library work;
+use work.control_generic_pkg.all;
+
+entity display_driver is
+	generic (
+		data_width: natural := 12
+	);
+	port (
+		clock: in std_logic;
+		reset: in std_logic;
+		data_in: in std_logic_vector(data_width-1 downto 0);
+		digit_one: out seven_segment_config;
+	);
+end entity display_driver;
+
+architecture arch of display_driver is
+end architecture arch;

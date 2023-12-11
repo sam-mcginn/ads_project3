@@ -49,6 +49,15 @@ architecture top_level of ads_project3 is
 	signal buffer_data_in: std_logic_vector((data_width-1) downto 0);
 	signal buffer_data_out: std_logic_vector((data_width-1) downto 0);
 	
+	-- 7 SEGMENT SIGNALS
+	signal digit_one: seven_segment_config;
+	signal digit_two: seven_segment_config;
+	signal digit_three: seven_segment_config;
+	signal digit_four: seven_segment_config;
+	signal digit_five: seven_segment_config;
+	signal digit_six: seven_segment_config;
+	
+	
 	function get_next_ptr ( curr: in pointer ) return pointer
 	is
 		variable ret: pointer;

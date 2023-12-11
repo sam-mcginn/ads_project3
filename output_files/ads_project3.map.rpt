@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ads_project3
-Fri Dec  8 14:02:43 2023
+Mon Dec 11 17:43:19 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -51,7 +51,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Dec  8 14:02:43 2023          ;
+; Analysis & Synthesis Status        ; Successful - Mon Dec 11 17:43:19 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; ads_project3                                   ;
 ; Top-level Entity Name              ; ads_project3                                   ;
@@ -357,7 +357,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
-    Info: Processing started: Fri Dec  8 14:02:34 2023
+    Info: Processing started: Mon Dec 11 17:43:09 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ads_project3 -c ads_project3
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -398,34 +398,37 @@ Info (12021): Found 1 design units, including 0 entities, in source file oisc_pk
     Info (12022): Found design unit 1: oisc_pkg File: /home/smcginn-adsd/ads_project3/oisc_pkg.vhd Line: 5
 Info (12021): Found 1 design units, including 0 entities, in source file project4_pkg.vhd
     Info (12022): Found design unit 1: project4_pkg File: /home/smcginn-adsd/ads_project3/project4_pkg.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file display_driver.vhd
+    Info (12022): Found design unit 1: display_driver-arch File: /home/smcginn-adsd/ads_project3/display_driver.vhd Line: 25
+    Info (12023): Found entity 1: display_driver File: /home/smcginn-adsd/ads_project3/display_driver.vhd Line: 8
 Info (12127): Elaborating entity "ads_project3" for the top level hierarchy
 Warning (10541): VHDL Signal Declaration warning at ads_project3.vhd(38): used implicit default value for signal "can_adv_con" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 38
 Warning (10541): VHDL Signal Declaration warning at ads_project3.vhd(41): used implicit default value for signal "can_adv_prod" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 41
 Warning (10036): Verilog HDL or VHDL warning at ads_project3.vhd(50): object "buffer_data_out" assigned a value but never read File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 50
-Warning (10492): VHDL Process Statement warning at ads_project3.vhd(149): signal "head_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 149
-Warning (10492): VHDL Process Statement warning at ads_project3.vhd(151): signal "tail_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 151
-Warning (10631): VHDL Process Statement warning at ads_project3.vhd(146): inferring latch(es) for signal or variable "head_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Warning (10631): VHDL Process Statement warning at ads_project3.vhd(146): inferring latch(es) for signal or variable "tail_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[0]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[1]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[2]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[3]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[4]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[5]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[6]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "tail_ptr[7]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[0]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[1]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[2]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[3]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[4]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[5]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[6]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (10041): Inferred latch for "head_ptr[7]" at ads_project3.vhd(146) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 146
-Info (12128): Elaborating entity "true_dual_port_ram_dual_clock" for hierarchy "true_dual_port_ram_dual_clock:buffer_ram" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 69
-Info (12128): Elaborating entity "max10_adc" for hierarchy "max10_adc:adc_driver" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 92
-Info (12128): Elaborating entity "oisc" for hierarchy "oisc:producer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 104
-Info (12128): Elaborating entity "oisc" for hierarchy "oisc:consumer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 123
+Warning (10492): VHDL Process Statement warning at ads_project3.vhd(159): signal "head_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 159
+Warning (10492): VHDL Process Statement warning at ads_project3.vhd(161): signal "tail_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 161
+Warning (10631): VHDL Process Statement warning at ads_project3.vhd(156): inferring latch(es) for signal or variable "head_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Warning (10631): VHDL Process Statement warning at ads_project3.vhd(156): inferring latch(es) for signal or variable "tail_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[0]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[1]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[2]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[3]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[4]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[5]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[6]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[7]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[0]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[1]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[2]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[3]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[4]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[5]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[6]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[7]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (12128): Elaborating entity "true_dual_port_ram_dual_clock" for hierarchy "true_dual_port_ram_dual_clock:buffer_ram" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 85
+Info (12128): Elaborating entity "max10_adc" for hierarchy "max10_adc:adc_driver" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 108
+Info (12128): Elaborating entity "oisc" for hierarchy "oisc:producer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 120
+Info (12128): Elaborating entity "oisc" for hierarchy "oisc:consumer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 139
 Warning (330000): Timing-Driven Synthesis is skipped because it could not initialize the timing netlist
 Info (17049): 2 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
@@ -438,8 +441,8 @@ Info (21057): Implemented 2 device resources after synthesis - the final resourc
     Info (21059): Implemented 0 output pins
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 12 warnings
     Info: Peak virtual memory: 422 megabytes
-    Info: Processing ended: Fri Dec  8 14:02:43 2023
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:19
+    Info: Processing ended: Mon Dec 11 17:43:19 2023
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:20
 
 

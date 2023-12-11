@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ads_project3
-Mon Dec 11 17:37:41 2023
+Mon Dec 11 17:43:19 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -10,7 +10,21 @@ Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Parameter Settings for User Entity Instance: Top-level Entity: |ads_project3
+ 11. Parameter Settings for User Entity Instance: true_dual_port_ram_dual_clock:buffer_ram
+ 12. Parameter Settings for User Entity Instance: oisc:producer_fsm
+ 13. Parameter Settings for User Entity Instance: oisc:consumer_fsm
+ 14. Port Connectivity Checks: "oisc:consumer_fsm"
+ 15. Port Connectivity Checks: "max10_adc:adc_driver"
+ 16. Port Connectivity Checks: "true_dual_port_ram_dual_clock:buffer_ram"
+ 17. Post-Synthesis Netlist Statistics for Top Partition
+ 18. Elapsed Time Per Partition
+ 19. Analysis & Synthesis Messages
 
 
 
@@ -37,22 +51,22 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Mon Dec 11 17:37:41 2023              ;
+; Analysis & Synthesis Status        ; Successful - Mon Dec 11 17:43:19 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; ads_project3                                   ;
 ; Top-level Entity Name              ; ads_project3                                   ;
 ; Family                             ; MAX 10                                         ;
-; Total logic elements               ; N/A until Partition Merge                      ;
-;     Total combinational functions  ; N/A until Partition Merge                      ;
-;     Dedicated logic registers      ; N/A until Partition Merge                      ;
-; Total registers                    ; N/A until Partition Merge                      ;
-; Total pins                         ; N/A until Partition Merge                      ;
-; Total virtual pins                 ; N/A until Partition Merge                      ;
-; Total memory bits                  ; N/A until Partition Merge                      ;
-; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                      ;
-; Total PLLs                         ; N/A until Partition Merge                      ;
-; UFM blocks                         ; N/A until Partition Merge                      ;
-; ADC blocks                         ; N/A until Partition Merge                      ;
+; Total logic elements               ; 0                                              ;
+;     Total combinational functions  ; 0                                              ;
+;     Dedicated logic registers      ; 0                                              ;
+; Total registers                    ; 0                                              ;
+; Total pins                         ; 2                                              ;
+; Total virtual pins                 ; 0                                              ;
+; Total memory bits                  ; 0                                              ;
+; Embedded Multiplier 9-bit elements ; 0                                              ;
+; Total PLLs                         ; 0                                              ;
+; UFM blocks                         ; 0                                              ;
+; ADC blocks                         ; 0                                              ;
 +------------------------------------+------------------------------------------------+
 
 
@@ -158,13 +172,192 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                   ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                            ; Library ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------+---------+
+; max10_adc.vhd                    ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/max10_adc.vhd           ;         ;
+; control_generic_pkg.vhd          ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/control_generic_pkg.vhd ; work    ;
+; ads_project3.vhd                 ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/ads_project3.vhd        ;         ;
+; buffer_ram.vhd                   ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/buffer_ram.vhd          ;         ;
+; oisc.vhd                         ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/oisc.vhd                ;         ;
+; oisc_pkg.vhd                     ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/oisc_pkg.vhd            ; work    ;
+; project4_pkg.vhd                 ; yes             ; User VHDL File  ; /home/smcginn-adsd/ads_project3/project4_pkg.vhd        ; work    ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------+---------+
+
+
++----------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary              ;
++---------------------------------------------+------------+
+; Resource                                    ; Usage      ;
++---------------------------------------------+------------+
+;                                             ;            ;
+; Total combinational functions               ; 0          ;
+; Logic element usage by number of LUT inputs ;            ;
+;     -- 4 input functions                    ; 0          ;
+;     -- 3 input functions                    ; 0          ;
+;     -- <=2 input functions                  ; 0          ;
+;                                             ;            ;
+; Logic elements by mode                      ;            ;
+;     -- normal mode                          ; 0          ;
+;     -- arithmetic mode                      ; 0          ;
+;                                             ;            ;
+; Total registers                             ; 0          ;
+;     -- Dedicated logic registers            ; 0          ;
+;     -- I/O registers                        ; 0          ;
+;                                             ;            ;
+; I/O pins                                    ; 2          ;
+;                                             ;            ;
+; Embedded Multiplier 9-bit elements          ; 0          ;
+;                                             ;            ;
+; Maximum fan-out node                        ; base_clock ;
+; Maximum fan-out                             ; 1          ;
+; Total fan-out                               ; 2          ;
+; Average fan-out                             ; 0.50       ;
++---------------------------------------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                 ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+--------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name ; Entity Name  ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+--------------+--------------+
+; |ads_project3              ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 2    ; 0            ; 0          ; |ads_project3       ; ads_project3 ; work         ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+--------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; oisc:producer_fsm|upc[0,1]            ; Lost fanout        ;
+; Total Number of Removed Registers = 2 ;                    ;
++---------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |ads_project3 ;
++----------------+-------+-----------------------------------------------------+
+; Parameter Name ; Value ; Type                                                ;
++----------------+-------+-----------------------------------------------------+
+; addr_width     ; 8     ; Signed Integer                                      ;
+; data_width     ; 12    ; Signed Integer                                      ;
++----------------+-------+-----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: true_dual_port_ram_dual_clock:buffer_ram ;
++----------------+-------+--------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                         ;
++----------------+-------+--------------------------------------------------------------+
+; data_width     ; 12    ; Signed Integer                                               ;
+; addr_width     ; 8     ; Signed Integer                                               ;
++----------------+-------+--------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: oisc:producer_fsm                                                   ;
++----------------+----------------------------------------------------------------------------------+--------------+
+; Parameter Name ; Value                                                                            ; Type         ;
++----------------+----------------------------------------------------------------------------------+--------------+
+; ucode_rom      ; A(A(E"'1'",E"'0'",E"'0'",E"'0'",E"'0'"),A(E"'1'",E"'0'",E"'0'",E"'1'",E"'0'"),A( ; Array/Record ;
+;                ; E"'0'",E"'0'",E"'0'",E"'0'",E"'1'"),A(E"'0'",E"'1'",E"'1'",E"'0'",E"'0'"))       ;              ;
++----------------+----------------------------------------------------------------------------------+--------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: oisc:consumer_fsm                                                 ;
++----------------+--------------------------------------------------------------------------------+--------------+
+; Parameter Name ; Value                                                                          ; Type         ;
++----------------+--------------------------------------------------------------------------------+--------------+
+; ucode_rom      ; A(A(E"'0'",E"'0'",E"'0'",E"'0'",E"'1'"),A(E"'0'",E"'1'",E"'0'",E"'0'",E"'0'")) ; Array/Record ;
++----------------+--------------------------------------------------------------------------------+--------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "oisc:consumer_fsm"                                                                            ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port           ; Type   ; Severity ; Details                                                                             ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; external_ctl_1 ; Input  ; Info     ; Stuck at GND                                                                        ;
+; driver_1       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; driver_3       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------+
+; Port Connectivity Checks: "max10_adc:adc_driver" ;
++-------------+-------+----------+-----------------+
+; Port        ; Type  ; Severity ; Details         ;
++-------------+-------+----------+-----------------+
+; chsel[4..1] ; Input ; Info     ; Stuck at GND    ;
+; chsel[0]    ; Input ; Info     ; Stuck at VCC    ;
+; tsen        ; Input ; Info     ; Stuck at VCC    ;
++-------------+-------+----------+-----------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "true_dual_port_ram_dual_clock:buffer_ram"                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; data_b ; Input  ; Info     ; Stuck at GND                                                                        ;
+; we_b   ; Input  ; Info     ; Stuck at GND                                                                        ;
+; q_a    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; q_b    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-------------------+---------------------------------+
+; Type              ; Count                           ;
++-------------------+---------------------------------+
+; boundary_port     ; 2                               ;
+;                   ;                                 ;
+; Max LUT depth     ; 0.00                            ;
+; Average LUT depth ; 0.00                            ;
++-------------------+---------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
-    Info: Processing started: Mon Dec 11 17:37:33 2023
+    Info: Processing started: Mon Dec 11 17:43:09 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ads_project3 -c ads_project3
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -205,12 +398,51 @@ Info (12021): Found 1 design units, including 0 entities, in source file oisc_pk
     Info (12022): Found design unit 1: oisc_pkg File: /home/smcginn-adsd/ads_project3/oisc_pkg.vhd Line: 5
 Info (12021): Found 1 design units, including 0 entities, in source file project4_pkg.vhd
     Info (12022): Found design unit 1: project4_pkg File: /home/smcginn-adsd/ads_project3/project4_pkg.vhd Line: 8
-Error (10500): VHDL syntax error at display_driver.vhd(32) near text ")";  expecting "(", or an identifier, or  unary operator File: /home/smcginn-adsd/ads_project3/display_driver.vhd Line: 32
-Info (12021): Found 0 design units, including 0 entities, in source file display_driver.vhd
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 413 megabytes
-    Error: Processing ended: Mon Dec 11 17:37:41 2023
-    Error: Elapsed time: 00:00:08
-    Error: Total CPU time (on all processors): 00:00:18
+Info (12021): Found 2 design units, including 1 entities, in source file display_driver.vhd
+    Info (12022): Found design unit 1: display_driver-arch File: /home/smcginn-adsd/ads_project3/display_driver.vhd Line: 25
+    Info (12023): Found entity 1: display_driver File: /home/smcginn-adsd/ads_project3/display_driver.vhd Line: 8
+Info (12127): Elaborating entity "ads_project3" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at ads_project3.vhd(38): used implicit default value for signal "can_adv_con" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 38
+Warning (10541): VHDL Signal Declaration warning at ads_project3.vhd(41): used implicit default value for signal "can_adv_prod" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 41
+Warning (10036): Verilog HDL or VHDL warning at ads_project3.vhd(50): object "buffer_data_out" assigned a value but never read File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 50
+Warning (10492): VHDL Process Statement warning at ads_project3.vhd(159): signal "head_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 159
+Warning (10492): VHDL Process Statement warning at ads_project3.vhd(161): signal "tail_ptr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 161
+Warning (10631): VHDL Process Statement warning at ads_project3.vhd(156): inferring latch(es) for signal or variable "head_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Warning (10631): VHDL Process Statement warning at ads_project3.vhd(156): inferring latch(es) for signal or variable "tail_ptr", which holds its previous value in one or more paths through the process File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[0]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[1]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[2]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[3]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[4]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[5]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[6]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "tail_ptr[7]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[0]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[1]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[2]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[3]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[4]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[5]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[6]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (10041): Inferred latch for "head_ptr[7]" at ads_project3.vhd(156) File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 156
+Info (12128): Elaborating entity "true_dual_port_ram_dual_clock" for hierarchy "true_dual_port_ram_dual_clock:buffer_ram" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 85
+Info (12128): Elaborating entity "max10_adc" for hierarchy "max10_adc:adc_driver" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 108
+Info (12128): Elaborating entity "oisc" for hierarchy "oisc:producer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 120
+Info (12128): Elaborating entity "oisc" for hierarchy "oisc:consumer_fsm" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 139
+Warning (330000): Timing-Driven Synthesis is skipped because it could not initialize the timing netlist
+Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "base_clock" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 17
+    Warning (15610): No output dependent on input pin "reset" File: /home/smcginn-adsd/ads_project3/ads_project3.vhd Line: 18
+Info (21057): Implemented 2 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 0 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 12 warnings
+    Info: Peak virtual memory: 422 megabytes
+    Info: Processing ended: Mon Dec 11 17:43:19 2023
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:20
 
 

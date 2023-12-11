@@ -29,24 +29,26 @@ architecture arch of display_driver is
 	signal dec_digits: dec_arr;
 begin
 	data_dec <= unsigned(data_in);
-	digit_two <= lamps_off();
-	digit_one <= get_hex_digit(12);
+	--digit_two <= lamps_off();
+	--digit_one <= get_hex_digit(12);
 	
 	drive_display: process(clock) is
 	begin
 		if rising_edge(clock) then
-			if dec_arr(3) > 0 then
-				digit_four <= get_hex_digit(dec_arr(3));
+			if dec_digits(3) > 0 then
+				digit_four <= get_hex_digit(dec_digits(3));
 			end if;
-			if dec_arr(2) > 0 then
-				digit_three <= get_hex_digit(dec_arr(2));
+			if dec_digits(2) > 0 then
+				digit_three <= get_hex_digit(dec_digits(2));
 			end if;
-			if dec_arr(1) > 0 then
-				digit_two <= get_hex_digit(dec_arr(1));
+			if dec_digits(1) > 0 then
+				digit_two <= get_hex_digit(dec_digits(1));
 			end if;
-			if dec_arr(0) > 0 then
-				digit_one <= get_hex_digit(dec_arr(0));
+			if dec_digits(0) > 0 then
+				digit_one <= get_hex_digit(dec_digits(0));
 			end if;
+			digit_two <= lamps_off(common_anode);
+			digit_one <= get_hex_digit(12);
 		end if;
 	end process drive_display;
 	

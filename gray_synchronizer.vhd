@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+--synchronizer including grey/bin conversions
 entity gray_synchronizer is
 	generic(
 	input_width: positive := 4

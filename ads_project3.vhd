@@ -10,7 +10,7 @@ use work.project4_pkg.all;
 
 entity ads_project3 is
 	generic (
-		addr_width: 	natural := 8;		-- FIX: VALUE ?
+		addr_width: 	natural := 4;		-- FIX: VALUE ?
 		data_width:			natural := 12		-- FIX: VALUE ?
 	);
 	port (
@@ -63,13 +63,37 @@ architecture top_level of ads_project3 is
 	
 	
 begin
+	
 	-- FIX: Two-stage FIFO synchronizer (between domains), need:
 	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
 	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)
 	-- Producer clock: adc_clock (output clock from ADC)
 	-- Consumer clock: base_clock (50MHz from board)
-
-
+	
+	head_ptr_sync: gray_synchronizer
+		generic map (
+			input_width: positive := 4
+		)
+		port map (
+			clocka	=> adc_clock,	
+			clockb	=> base_clock,
+			input_signal =>  tail_ptr,
+			output_signal => tail_ptr_con
+		)
+		
+	tail_ptr_sync: gray_synchronizer
+		generic map (
+			input_width: positive := 4
+		)
+		port map (
+			clocka	=> base_clock,	
+			clockb	=> adc_clock,
+			input_signal =>  head_ptr
+			output_signal => head_ptr_con
+		)
+	--12/11/23 Nathan added port maps
+	
+	
 	-- Buffer RAM; side A = producer/head side, B = consumer/tail side
 	buffer_data_in <= std_logic_vector(to_unsigned(adc_data, buffer_data_in'length));
 	

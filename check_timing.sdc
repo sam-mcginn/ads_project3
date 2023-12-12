@@ -7,7 +7,7 @@ create_clock -period ??? -name base_clock
 
 # ADC 10MHz clock (adc_clock_virt)
 create_clock -period ??? [ get_ports ??? ]
-create_clock -period ??? -name adc_clock_in
+create_clock -period ??? -name pll_src
 
 # ADC derived clock (clk_div)
 create_generate_clock -name prod_clock -source [ get_pins ??? ] \

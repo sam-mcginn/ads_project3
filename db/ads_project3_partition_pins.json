@@ -2,7 +2,100 @@
 	"partitions" : [
 		{
 			"name" : "Top",
-			"pins" : []
+			"pins" : [
+				{
+					"name" : "seven_seg_out[0].g",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].f",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].e",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].d",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].c",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].b",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[0].a",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].g",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].f",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].e",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].d",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].c",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].b",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[1].a",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].g",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].f",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].e",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].d",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].c",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].b",
+					"strict" : false
+				},
+				{
+					"name" : "seven_seg_out[2].a",
+					"strict" : false
+				},
+				{
+					"name" : "base_clock",
+					"strict" : false
+				},
+				{
+					"name" : "reset",
+					"strict" : false
+				}
+			]
 		}
 	]
 }

@@ -91,10 +91,8 @@ package project4_pkg is
 	component adc_10MHz IS
 		PORT
 			(
-				areset		: IN STD_LOGIC  := '0';
 				inclk0		: IN STD_LOGIC  := '0';
-				c0		: OUT STD_LOGIC ;
-				locked		: OUT STD_LOGIC 
+				c0		: OUT STD_LOGIC
 			);
 	END component adc_10MHz;
 end package project4_pkg;

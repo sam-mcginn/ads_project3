@@ -15,7 +15,8 @@ entity ads_project3 is
 	port (
 		base_clock:			in std_logic;
 		pll_src:				in std_logic;
-		reset: 				in std_logic
+		reset: 				in std_logic;
+		seven_seg_out: 	out seven_segment_output_type(5 downto 0)
 	);
 end entity ads_project3;
 
@@ -57,13 +58,13 @@ architecture top_level of ads_project3 is
 	signal buffer_data_out: std_logic_vector((data_width-1) downto 0);
 	
 	-- 7 SEGMENT SIGNALS
-	signal digit_one: seven_segment_config;
-	signal digit_two: seven_segment_config;
-	signal digit_three: seven_segment_config;
-	signal digit_four: seven_segment_config;
-	signal digit_five: seven_segment_config;
-	signal digit_six: seven_segment_config;
-	signal display_array: seven_segment_output_type(2 downto 0);
+--	signal digit_one: seven_segment_config;
+--	signal digit_two: seven_segment_config;
+--	signal digit_three: seven_segment_config;
+--	signal digit_four: seven_segment_config;
+--	signal digit_five: seven_segment_config;
+--	signal digit_six: seven_segment_config;
+--	signal display_array: seven_segment_output_type(2 downto 0);
 	
 	function get_next_ptr ( curr: in pointer ) return pointer
 	is
@@ -78,7 +79,7 @@ architecture top_level of ads_project3 is
 	end function get_next_ptr;
 	
 begin
-	
+	-- seven_seg_out <= (digit_six, digit_five, digit_four, digit_three, digit_two, digit_one);
 	-- FIX: Two-stage FIFO synchronizer (between domains), need:
 	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
 	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)
@@ -135,8 +136,7 @@ begin
 		
 	-- PRODUCER SIDE:
 	-- ADC
-	adc_clock_in <= not adc_clock_in after 100ns; -- FIX - DRIVE FROM PLL (10MHZ)
-	adc_ch_sel <= 1;				-- FIX - ????
+	adc_ch_sel <= 0;				-- FIX - ????
 	adc_mode <= '1';
 	adc_driver: max10_adc
 		port map (
@@ -196,10 +196,14 @@ begin
 	end process advance_ptrs;
 	
 	-- Update 7 segment displays at 50MHz
-	digit_four <= lamps_off();
-	digit_five <= lamps_off();
-	digit_six <= lamps_off();
-	display_array <= (digit_three, digit_two, digit_one);
+	--digit_four <= lamps_off;
+	--digit_five <= lamps_off;
+	--digit_six <= lamps_off;
+	--display_array <= (digit_three, digit_two, digit_one);
+	
+	blank_segments: for i in 3 to 5 generate
+		seven_seg_out(i) <= lamps_off;
+	end generate blank_segments;
 	
 	show_temp: display_driver
 		generic map (
@@ -208,15 +212,13 @@ begin
 		port map (
 			clock => base_clock,
 			data_in => buffer_data_out,
-			digits => display_array
+			digits => seven_seg_out(2 downto 0)
 		);
 	
 	adc_clk: adc_10MHz
 		port map (
-			areset => reset,
 			inclk0 => pll_src,
-			c0	=> adc_clock_in,
-			locked => open
+			c0	=> adc_clock_in
 		);
 	-- Read buffer_data_out, after tail_ptr is updated (do_update_tail), use base_clock 
 	

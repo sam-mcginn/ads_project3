@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+--standalone 1 bit synchronizer, no grey/bin conversions
 entity two_stage_synchronizer is
 	port (
 	clocka:		in std_logic;

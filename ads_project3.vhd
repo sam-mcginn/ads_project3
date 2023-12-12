@@ -78,6 +78,7 @@ architecture top_level of ads_project3 is
 	end function get_next_ptr;
 	
 begin
+	
 	-- FIX: Two-stage FIFO synchronizer (between domains), need:
 	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
 	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)

@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+--4 bit synchronizer, no grey/bin conversions
 entity synchronizer is
 	generic(
 	input_width: positive := 4

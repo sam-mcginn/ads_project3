@@ -67,4 +67,6 @@ set_global_assignment -name VHDL_FILE oisc.vhd
 set_global_assignment -name VHDL_FILE oisc_pkg.vhd -library work
 set_global_assignment -name VHDL_FILE project4_pkg.vhd -library work
 set_global_assignment -name VHDL_FILE display_driver.vhd
+set_global_assignment -name TCL_SCRIPT_FILE place_project4.tcl
+set_global_assignment -name QIP_FILE adc_10MHz.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -16,6 +16,7 @@ package control_generic_pkg is
 
 	 -- Set of seven-segment display digits
 	type my_array is array (natural range <>) of seven_segment_config; 
+	type seven_segment_output_type is array(natural range<>) of seven_segment_config;
 
 	-- Type of seven-segment display (default = common anode)
 	type lamp_configuration is (common_anode, common_cathode);

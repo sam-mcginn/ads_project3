@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.oisc_pkg.all;
---use work.control_generic_pkg.all
+use work.control_generic_pkg.all;
 
 package project4_pkg is
 	-- Gray to binary converter
@@ -63,5 +63,38 @@ package project4_pkg is
 			clk_dft:		out std_logic								-- clk_dft: clock output from clock divider
 		);
 	end component max10_adc;
+	
+	component gray_synchronizer is
+		generic(
+			input_width: positive := 4
+			);
+		port (
+			clocka:		in std_logic;
+			clockb:		in std_logic;
+			
+			input_signal: in std_logic_vector (3 downto 0);
+			output_signal: out std_logic_vector (3 downto 0)
+			);
+	end component gray_synchronizer;
+	
+	component display_driver is
+		generic (
+			data_width:			natural := 12
+		);
+		port (
+			clock: in std_logic;
+			data_in: in std_logic_vector(data_width-1 downto 0);
+			digits: out seven_segment_output_type(2 downto 0)
+		);
+	end component display_driver;
 
+	component adc_10MHz IS
+		PORT
+			(
+				areset		: IN STD_LOGIC  := '0';
+				inclk0		: IN STD_LOGIC  := '0';
+				c0		: OUT STD_LOGIC ;
+				locked		: OUT STD_LOGIC 
+			);
+	END component adc_10MHz;
 end package project4_pkg;

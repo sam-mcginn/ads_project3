@@ -10,16 +10,17 @@ use work.project4_pkg.all;
 
 entity ads_project3 is
 	generic (
-		addr_width: 	natural := 8;		-- FIX: VALUE ?
-		data_width:			natural := 12		-- FIX: VALUE ?
+		addr_width: 	natural := 8		-- FIX: VALUE ?
 	);
 	port (
 		base_clock:			in std_logic;
+		pll_src:				in std_logic;
 		reset: 				in std_logic
 	);
 end entity ads_project3;
 
 architecture top_level of ads_project3 is
+	constant data_width: natural := 12;
 	-- ADC SIGNALS
 	signal adc_clock_in: std_logic := '0';		-- PLL clock input (10MHz) FIX: DRIVE FROM PLL
 	signal prod_clock: std_logic;					-- Output clock from ADC -> drive rest of producer side
@@ -30,7 +31,7 @@ architecture top_level of ads_project3 is
 	signal adc_eoc: std_logic;						-- ADC end of conversion indicator
 	
 	-- BUFFER/FSM SIGNALS
-	constant max_ptr: natural := 2**(addr_width)-1;
+	constant max_ptr: natural := (2**(addr_width))-1;
 	subtype pointer is natural range 0 to max_ptr;		-- FIX: DOUBLE CHECK?
 	signal head_ptr: pointer := 0;									-- FIX: ADD FUNCTION TO INCREMENT HEAD/TAIL
 	signal tail_ptr: pointer := 0;
@@ -45,6 +46,12 @@ architecture top_level of ads_project3 is
 	signal increment_tail: std_logic;			-- indicates when tail ptr. should be advanced
 	signal write_enable: std_logic;
 	
+	-- SYNC SIGNALS
+	signal tp_in: std_logic_vector(3 downto 0);
+	signal tp_out: std_logic_vector(3 downto 0);
+	signal hp_in: std_logic_vector(3 downto 0);
+	signal hp_out: std_logic_vector(3 downto 0);
+	
 	-- FIX: CONVERT ADC DATA OUT (NATURAL) --> BUFFER DATA IN (STD_LOGIC_VECTOR)
 	signal buffer_data_in: std_logic_vector((data_width-1) downto 0);
 	signal buffer_data_out: std_logic_vector((data_width-1) downto 0);
@@ -56,7 +63,7 @@ architecture top_level of ads_project3 is
 	signal digit_four: seven_segment_config;
 	signal digit_five: seven_segment_config;
 	signal digit_six: seven_segment_config;
-	
+	signal display_array: seven_segment_output_type(2 downto 0);
 	
 	function get_next_ptr ( curr: in pointer ) return pointer
 	is
@@ -70,13 +77,38 @@ architecture top_level of ads_project3 is
 		return ret;
 	end function get_next_ptr;
 	
-	
 begin
 	-- FIX: Two-stage FIFO synchronizer (between domains), need:
 	-- PRODUCER: head_ptr --> head_ptr_con (CONSUMER)
 	-- CONSUMER: tail_ptr --> tail_ptr_prod (PRODUCER)
-	-- Producer clock: adc_clock (output clock from ADC)
+	-- Producer clock: prod_clock (output clock from ADC)
 	-- Consumer clock: base_clock (50MHz from board)
+	tp_in <= std_logic_vector(to_unsigned(tail_ptr, tp_in'length));
+	tail_ptr_prod <= to_integer(unsigned(tp_out));
+	hp_in <= std_logic_vector(to_unsigned(head_ptr, hp_in'length));
+	head_ptr_con <= to_integer(unsigned(hp_out));
+	
+	head_ptr_sync: gray_synchronizer
+		generic map (
+			input_width => 4
+		)
+		port map (
+			clocka	=> prod_clock,	
+			clockb	=> base_clock,
+			input_signal =>  tp_in,
+			output_signal => tp_out
+		);
+		
+	tail_ptr_sync: gray_synchronizer
+		generic map (
+			input_width => 4
+		)
+		port map (
+			clocka	=> base_clock,	
+			clockb	=> prod_clock,
+			input_signal =>  hp_in,
+			output_signal => hp_out
+		);
 
 
 	-- Buffer RAM; side A = producer/head side, B = consumer/tail side
@@ -163,8 +195,28 @@ begin
 	end process advance_ptrs;
 	
 	-- Update 7 segment displays at 50MHz
+	digit_four <= lamps_off();
+	digit_five <= lamps_off();
+	digit_six <= lamps_off();
+	display_array <= (digit_three, digit_two, digit_one);
 	
+	show_temp: display_driver
+		generic map (
+			data_width => data_width
+		)
+		port map (
+			clock => base_clock,
+			data_in => buffer_data_out,
+			digits => display_array
+		);
 	
+	adc_clk: adc_10MHz
+		port map (
+			areset => reset,
+			inclk0 => pll_src,
+			c0	=> adc_clock_in,
+			locked => open
+		);
 	-- Read buffer_data_out, after tail_ptr is updated (do_update_tail), use base_clock 
 	
 end architecture top_level;

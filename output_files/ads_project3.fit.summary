@@ -1,17 +1,17 @@
-Fitter Status : Failed - Wed Dec 13 15:27:22 2023
+Fitter Status : Successful - Wed Dec 13 16:59:47 2023
 Quartus Prime Version : 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 Revision Name : ads_project3
 Top-level Entity Name : ads_project3
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 89 / 49,760 ( < 1 % )
-    Total combinational functions : 89 / 49,760 ( < 1 % )
-    Dedicated logic registers : 5 / 49,760 ( < 1 % )
-Total registers : 5
+Total logic elements : 58 / 49,760 ( < 1 % )
+    Total combinational functions : 50 / 49,760 ( < 1 % )
+    Dedicated logic registers : 17 / 49,760 ( < 1 % )
+Total registers : 17
 Total pins : 45 / 360 ( 13 % )
 Total virtual pins : 0
-Total memory bits : 3,072 / 1,677,312 ( < 1 % )
+Total memory bits : 192 / 1,677,312 ( < 1 % )
 Embedded Multiplier 9-bit elements : 0 / 288 ( 0 % )
 Total PLLs : 1 / 4 ( 25 % )
 UFM blocks : 0 / 1 ( 0 % )

@@ -116,7 +116,7 @@ package body control_generic_pkg is
 		) return seven_segment_config
 	is
 	begin
-		if lamp_mode = common_anode then
+		if lamp_mode = common_cathode then
 			return seven_segment_table(digit);
 		end if;
 		return not seven_segment_table(digit);
@@ -128,7 +128,7 @@ package body control_generic_pkg is
 		) return seven_segment_config
 	is
 	begin
-		if lamp_mode = common_anode then
+		if lamp_mode = common_cathode then
 			return zero;
 		 else
 			return one;

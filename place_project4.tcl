@@ -25,7 +25,7 @@ set seven_seg { \
 
 # 7 segment display assignment	
 # iterate through each digit
-for { set i 0 } { ${i} < 5 } { incr i } {
+for { set i 0 } { ${i} < 6 } { incr i } {
 	# iterate through each segment of digit
 	set j 0
 	foreach lamp { a b c d e f g } {

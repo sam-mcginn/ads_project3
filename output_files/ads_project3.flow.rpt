@@ -1,5 +1,5 @@
 Flow report for ads_project3
-Wed Dec 13 15:27:22 2023
+Wed Dec 13 16:59:51 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -41,20 +41,20 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Flow Failed - Wed Dec 13 15:27:22 2023         ;
+; Flow Status                        ; Successful - Wed Dec 13 16:59:51 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; ads_project3                                   ;
 ; Top-level Entity Name              ; ads_project3                                   ;
 ; Family                             ; MAX 10                                         ;
 ; Device                             ; 10M50DAF484C7G                                 ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 89 / 49,760 ( < 1 % )                          ;
-;     Total combinational functions  ; 89 / 49,760 ( < 1 % )                          ;
-;     Dedicated logic registers      ; 5 / 49,760 ( < 1 % )                           ;
-; Total registers                    ; 5                                              ;
+; Total logic elements               ; 58 / 49,760 ( < 1 % )                          ;
+;     Total combinational functions  ; 50 / 49,760 ( < 1 % )                          ;
+;     Dedicated logic registers      ; 17 / 49,760 ( < 1 % )                          ;
+; Total registers                    ; 17                                             ;
 ; Total pins                         ; 45 / 360 ( 13 % )                              ;
 ; Total virtual pins                 ; 0                                              ;
-; Total memory bits                  ; 3,072 / 1,677,312 ( < 1 % )                    ;
+; Total memory bits                  ; 192 / 1,677,312 ( < 1 % )                      ;
 ; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                                ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                                 ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                                  ;
@@ -67,7 +67,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/13/2023 15:26:27 ;
+; Start date & time ; 12/13/2023 16:59:26 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ads_project3        ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 8796750404080.170249918722817          ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 8796750404080.170250476624734          ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; adc_10MHz.cmp                          ; --            ; --          ; --         ;
@@ -97,10 +97,10 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:11     ; 1.0                     ; 446 MB              ; 00:00:22                           ;
-; Fitter               ; 00:00:03     ; 1.0                     ; 704 MB              ; 00:00:03                           ;
-; Fitter               ; 00:00:02     ; 1.0                     ; 704 MB              ; 00:00:03                           ;
-; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:28                           ;
+; Analysis & Synthesis ; 00:00:10     ; 1.0                     ; 450 MB              ; 00:00:19                           ;
+; Fitter               ; 00:00:11     ; 1.0                     ; 1081 MB             ; 00:00:13                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 382 MB              ; 00:00:03                           ;
+; Total                ; 00:00:23     ; --                      ; --                  ; 00:00:35                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -111,7 +111,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+------------------+----------------+------------+----------------+
 ; Analysis & Synthesis ; ADSD-Ubuntu      ; Ubuntu 22.04.3 ; 22         ; x86_64         ;
 ; Fitter               ; ADSD-Ubuntu      ; Ubuntu 22.04.3 ; 22         ; x86_64         ;
-; Fitter               ; ADSD-Ubuntu      ; Ubuntu 22.04.3 ; 22         ; x86_64         ;
+; Assembler            ; ADSD-Ubuntu      ; Ubuntu 22.04.3 ; 22         ; x86_64         ;
 +----------------------+------------------+----------------+------------+----------------+
 
 
@@ -120,7 +120,7 @@ https://fpgasoftware.intel.com/eula.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off ads_project3 -c ads_project3
 quartus_fit --read_settings_files=off --write_settings_files=off ads_project3 -c ads_project3
-quartus_fit --read_settings_files=on --write_settings_files=off ads_project3 -c ads_project3
+quartus_asm --read_settings_files=off --write_settings_files=off ads_project3 -c ads_project3
 
 
 

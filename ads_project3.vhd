@@ -10,7 +10,7 @@ use work.project4_pkg.all;
 
 entity ads_project3 is
 	generic (
-		addr_width: 	natural := 8		-- FIX: VALUE ?
+		addr_width: 	natural := 4		-- FIX: VALUE ?
 	);
 	port (
 		base_clock:			in std_logic;
@@ -177,7 +177,7 @@ begin
 
 	-- PROCESSES, etc.:
 	-- Update pointer(s):
-	advance_ptrs: process(do_adv_head, do_adv_tail) is
+	advance_ptrs: process(do_adv_head, do_adv_tail, head_ptr, tail_ptr) is
 	begin
 		if reset='0' then
 			head_ptr <= 0;
@@ -194,7 +194,7 @@ begin
 	set_consumer_advance: process(base_clock) is
 	begin
 		if rising_edge(base_clock) then
-			if tail_ptr < head_ptr then
+			if tail_ptr < head_ptr_con then
 				can_adv_con <= '1';
 			else
 				can_adv_con <= '0';

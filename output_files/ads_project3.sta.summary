@@ -3,27 +3,35 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -811.850
-TNS   : -2444.200
+Slack : -812.107
+TNS   : -2450.117
+
+Type  : Slow 1200mV 85C Model Setup 'base_clock'
+Slack : -4.772
+TNS   : -8.740
 
 Type  : Slow 1200mV 85C Model Setup 'oisc:producer_fsm|upc[0]'
-Slack : -2.876
-TNS   : -20.534
+Slack : -4.271
+TNS   : -45.993
 
 Type  : Slow 1200mV 85C Model Hold 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -1.101
-TNS   : -1.101
+Slack : -1.456
+TNS   : -1.456
+
+Type  : Slow 1200mV 85C Model Hold 'base_clock'
+Slack : 0.680
+TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'oisc:producer_fsm|upc[0]'
-Slack : 1.249
+Slack : 1.209
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'base_clock'
 Slack : -3.000
-TNS   : -5.422
+TNS   : -8.228
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'oisc:producer_fsm|upc[0]'
-Slack : 0.383
+Slack : 0.341
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
@@ -35,27 +43,35 @@ Slack : 49.895
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -802.692
-TNS   : -2415.294
+Slack : -802.951
+TNS   : -2420.308
+
+Type  : Slow 1200mV 0C Model Setup 'base_clock'
+Slack : -4.223
+TNS   : -7.658
 
 Type  : Slow 1200mV 0C Model Setup 'oisc:producer_fsm|upc[0]'
-Slack : -2.561
-TNS   : -18.124
+Slack : -3.896
+TNS   : -40.891
 
 Type  : Slow 1200mV 0C Model Hold 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -1.516
-TNS   : -1.516
+Slack : -1.851
+TNS   : -1.851
+
+Type  : Slow 1200mV 0C Model Hold 'base_clock'
+Slack : 0.539
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'oisc:producer_fsm|upc[0]'
-Slack : 1.149
+Slack : 1.101
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'base_clock'
 Slack : -3.000
-TNS   : -5.333
+TNS   : -8.139
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'oisc:producer_fsm|upc[0]'
-Slack : 0.422
+Slack : 0.293
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
@@ -67,27 +83,35 @@ Slack : 49.920
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -758.468
-TNS   : -2278.724
+Slack : -758.515
+TNS   : -2280.780
+
+Type  : Fast 1200mV 0C Model Setup 'base_clock'
+Slack : -1.711
+TNS   : -2.720
 
 Type  : Fast 1200mV 0C Model Setup 'oisc:producer_fsm|upc[0]'
-Slack : -0.518
-TNS   : -3.373
+Slack : -1.238
+TNS   : -9.570
 
 Type  : Fast 1200mV 0C Model Hold 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -2.188
-TNS   : -2.188
+Slack : -2.327
+TNS   : -2.526
+
+Type  : Fast 1200mV 0C Model Hold 'base_clock'
+Slack : 0.298
+TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'oisc:producer_fsm|upc[0]'
-Slack : 0.470
+Slack : 0.483
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'base_clock'
 Slack : -3.000
-TNS   : -4.087
+TNS   : -6.155
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'oisc:producer_fsm|upc[0]'
-Slack : 0.376
+Slack : 0.367
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'adc_clk|altpll_component|auto_generated|pll1|clk[0]'

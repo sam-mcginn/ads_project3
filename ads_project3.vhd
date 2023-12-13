@@ -57,15 +57,6 @@ architecture top_level of ads_project3 is
 	signal buffer_data_in: std_logic_vector((data_width-1) downto 0);
 	signal buffer_data_out: std_logic_vector((data_width-1) downto 0);
 	
-	-- 7 SEGMENT SIGNALS
---	signal digit_one: seven_segment_config;
---	signal digit_two: seven_segment_config;
---	signal digit_three: seven_segment_config;
---	signal digit_four: seven_segment_config;
---	signal digit_five: seven_segment_config;
---	signal digit_six: seven_segment_config;
---	signal display_array: seven_segment_output_type(2 downto 0);
-	
 	function get_next_ptr ( curr: in pointer ) return pointer
 	is
 		variable ret: pointer;
@@ -161,7 +152,7 @@ begin
 			external_ctl_2		=> can_adv_prod,	-- can advance indicator
 
 			driver_1				=> adc_soc,			-- drives start conversion signal
-			driver_2				=>	do_adv_head,	-- drives advance head/tail signal - FIX - JUST TO COMPILE
+			driver_2				=>	do_adv_head,	-- drives advance head/tail signal
 			driver_3				=> write_enable	-- drives write enable
 		);
 		
@@ -180,7 +171,7 @@ begin
 			external_ctl_2		=> can_adv_con,	-- can advance indicator
 
 			driver_1				=> open,				-- drives start conversion signal
-			driver_2				=> do_adv_tail,	-- drives advance head/tail signal - FIX - JUST TO COMPILE
+			driver_2				=> do_adv_tail,	-- drives advance head/tail signal
 			driver_3				=> open				-- drives write enable
 		);
 
@@ -188,19 +179,41 @@ begin
 	-- Update pointer(s):
 	advance_ptrs: process(do_adv_head, do_adv_tail) is
 	begin
-		if (do_adv_head = '1') then
+		if reset='0' then
+			head_ptr <= 0;
+			tail_ptr <= 0;
+		elsif (do_adv_head = '1') then
 			head_ptr <= get_next_ptr(head_ptr);
 		elsif (do_adv_tail = '1') then
 			tail_ptr <= get_next_ptr(tail_ptr);
 		end if;
 	end process advance_ptrs;
 	
-	-- Update 7 segment displays at 50MHz
-	--digit_four <= lamps_off;
-	--digit_five <= lamps_off;
-	--digit_six <= lamps_off;
-	--display_array <= (digit_three, digit_two, digit_one);
+	-- Indicate if FSMs can advance
+	-- Consumer side: can advance if head ptr > tail ptr
+	set_consumer_advance: process(base_clock) is
+	begin
+		if rising_edge(base_clock) then
+			if tail_ptr < head_ptr then
+				can_adv_con <= '1';
+			else
+				can_adv_con <= '0';
+			end if;
+		end if;
+	end process set_consumer_advance;
+	-- Producer side: can advance if head ptr != max_ptr
+	set_producer_advance: process(prod_clock) is
+	begin
+		if rising_edge(prod_clock) then
+			if head_ptr < max_ptr then
+				can_adv_prod <= '1';
+			else
+				can_adv_prod <= '0';
+			end if;
+		end if;
+	end process set_producer_advance;
 	
+	-- Update 7 segment displays at 50MHz
 	blank_segments: for i in 3 to 5 generate
 		seven_seg_out(i) <= lamps_off;
 	end generate blank_segments;
@@ -220,6 +233,5 @@ begin
 			inclk0 => pll_src,
 			c0	=> adc_clock_in
 		);
-	-- Read buffer_data_out, after tail_ptr is updated (do_update_tail), use base_clock 
 	
 end architecture top_level;

@@ -1,5 +1,6 @@
 |ads_project3
 base_clock => gray_synchronizer:head_ptr_sync.clockb
+base_clock => can_adv_con.CLK
 base_clock => gray_synchronizer:tail_ptr_sync.clocka
 base_clock => true_dual_port_ram_dual_clock:buffer_ram.clk_b
 base_clock => oisc:consumer_fsm.clock
@@ -7,6 +8,22 @@ base_clock => display_driver:show_temp.clock
 pll_src => adc_10MHz:adc_clk.inclk0
 reset => oisc:producer_fsm.reset
 reset => oisc:consumer_fsm.reset
+reset => head_ptr[7].ACLR
+reset => head_ptr[6].ACLR
+reset => head_ptr[5].ACLR
+reset => head_ptr[4].ACLR
+reset => head_ptr[3].ACLR
+reset => head_ptr[2].ACLR
+reset => head_ptr[1].ACLR
+reset => tail_ptr[7].ACLR
+reset => tail_ptr[6].ACLR
+reset => tail_ptr[5].ACLR
+reset => tail_ptr[4].ACLR
+reset => tail_ptr[3].ACLR
+reset => tail_ptr[2].ACLR
+reset => tail_ptr[1].ACLR
+reset => tail_ptr[0].ACLR
+reset => head_ptr[0].ACLR
 seven_seg_out[0].g << display_driver:show_temp.digits[0].g
 seven_seg_out[0].f << display_driver:show_temp.digits[0].f
 seven_seg_out[0].e << display_driver:show_temp.digits[0].e

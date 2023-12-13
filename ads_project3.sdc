@@ -2,13 +2,13 @@
 # FIX - fill in template
 
 # main 50 MHz clock (main_clock_virt)
-create_clock -period ??? [ get_ports ??? ]
-create_clock -period ??? -name base_clock
+create_clock -period 20ns [ get_ports ??? ]
+create_clock -period 20ns -name base_clock
 
 # ADC 10MHz clock (adc_clock_virt)
-create_clock -period ??? [ get_ports ??? ]
-create_clock -period ??? -name pll_src
+create_clock -period 100ns [ get_ports ??? ]
+create_clock -period 100ns -name pll_src
 
 # ADC derived clock (clk_div)
 create_generate_clock -name prod_clock -source [ get_pins ??? ] \
-	-divide_by ??? -multiply_by ??? [ get_pins ???? ]
+	-divide_by 1 -multiply_by 1 [ get_pins ???? ]

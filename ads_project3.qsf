@@ -90,6 +90,7 @@ set_location_assignment PIN_J18 -to seven_seg_out[4].d
 set_location_assignment PIN_H19 -to seven_seg_out[4].e
 set_location_assignment PIN_F19 -to seven_seg_out[4].f
 set_location_assignment PIN_F20 -to seven_seg_out[4].g
+set_global_assignment -name SDC_FILE ads_project3.sdc
 set_global_assignment -name VHDL_FILE max10_adc.vhd
 set_global_assignment -name VHDL_FILE gray_synchronizer.vhd
 set_global_assignment -name VHDL_FILE synchronizer.vhd

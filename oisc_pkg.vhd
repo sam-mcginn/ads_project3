@@ -20,12 +20,27 @@ package oisc_pkg is
 		(ctrl1 => '0', ctrl2 => '1', ctrl3 => '0', flag1 => '0', flag2 => '0' )
 	);
 	
+	constant consumer_ucode: ucode_rom_type := (
+			-- wait for new data -> wait for can_advance (ext. ctrl. 2)
+			(ctrl1 => '0', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '1' ),
+			-- can advance tail -> advance tail (driver 2)
+			(ctrl1 => '0', ctrl2 => '1', ctrl3 => '0', flag1 => '0', flag2 => '0' )
+	);
+	
 	constant default_producer_ucode: ucode_rom_type := (
 			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '0' ),	-- start conversion
 			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '1', flag2 => '0' ),	-- wait for conversion
 			(ctrl1 => '0', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '1' ),	-- can advance head
 			(ctrl1 => '0', ctrl2 => '1', ctrl3 => '1', flag1 => '0', flag2 => '0' )		-- store data and advance
 		);
+	
+	constant producer_ucode: ucode_rom_type := (
+			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '0' ),	-- start conversion
+			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '1', flag2 => '0' ),	-- wait for conversion
+			(ctrl1 => '0', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '1' ),	-- can advance head
+			(ctrl1 => '0', ctrl2 => '1', ctrl3 => '1', flag1 => '0', flag2 => '0' )		-- store data and advance
+	);
+	
 		
 	component oisc is
 		generic (
@@ -43,21 +58,5 @@ package oisc_pkg is
 			
 		);
 	end component oisc;
-	
-	constant producer_ucode: ucode_rom_type := (
-			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '0' ),	-- start conversion
-			(ctrl1 => '1', ctrl2 => '0', ctrl3 => '0', flag1 => '1', flag2 => '0' ),	-- wait for conversion
-			(ctrl1 => '0', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '1' ),	-- can advance head
-			(ctrl1 => '0', ctrl2 => '1', ctrl3 => '1', flag1 => '0', flag2 => '0' )		-- store data and advance
-	);
-	
-	constant consumer_ucode: ucode_rom_type := (
-			-- wait for new data -> wait for can_advance (ext. ctrl. 2)
-			(ctrl1 => '0', ctrl2 => '0', ctrl3 => '0', flag1 => '0', flag2 => '1' ),
-			-- can advance tail -> advance tail (driver 2)
-			(ctrl1 => '0', ctrl2 => '1', ctrl3 => '0', flag1 => '0', flag2 => '0' )
-	);
-
-
 	
 end package oisc_pkg;
